@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
+  <title>오늘 뭐 먹지?</title>
   <link href='/style.css' rel='stylesheet'>
 </head>
 <body>
@@ -14,8 +14,32 @@
     </button>
   </div>
 
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
+  <div class="container">
+    <h1>오늘 뭐 먹지?</h1>
+    <p class="subtitle">점심 또는 저녁 메뉴를 추천해 드릴게요</p>
+
+    <div class="meal-select">
+      <button class="meal-btn" data-meal="lunch" onclick="selectMeal('lunch')">
+        점심
+      </button>
+      <button class="meal-btn" data-meal="dinner" onclick="selectMeal('dinner')">
+        저녁
+      </button>
+    </div>
+
+    <button class="recommend-btn" onclick="recommendFood()" disabled>
+      추천 받기
+    </button>
+
+    <div class="food-grid" id="foodGrid">
+      <!-- 추천 음식이 여기에 표시됩니다 -->
+    </div>
+
+    <button class="refresh-btn" id="refreshBtn" onclick="recommendFood()" style="display: none;">
+      다시 추천 받기
+    </button>
+  </div>
+
   <script type="text/javascript" src="/main.js"></script>
 </body>
 </html>
