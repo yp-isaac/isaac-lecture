@@ -96,17 +96,22 @@ body {
 /* 아이콘 표시 */
 .theme-toggle .icon {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
+  bottom: 0;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 14px;
+  line-height: 1;
 }
 
 .theme-toggle .sun {
-  left: 8px;
+  left: 0;
 }
 
 .theme-toggle .moon {
-  right: 8px;
+  right: 0;
 }
 
 /* 헤딩 스타일 */
