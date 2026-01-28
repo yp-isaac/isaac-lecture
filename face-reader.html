@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>얼굴로 보는 성격 분석</title>
+  <link href='/face-reader.css' rel='stylesheet'>
+</head>
+<body>
+  <div class="theme-toggle-container">
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <span class="icon moon">🌙</span>
+      <span class="icon sun">☀️</span>
+    </button>
+  </div>
+
+  <div class="container">
+    <h1>얼굴로 보는 성격 분석</h1>
+    <p class="subtitle">사진을 업로드하면 재미있는 성격 분석 결과를 알려드려요</p>
+
+    <!-- 업로드 영역 -->
+    <div class="upload-section" id="uploadSection">
+      <div class="upload-area" id="uploadArea">
+        <input type="file" id="fileInput" accept="image/*" hidden>
+        <div class="upload-placeholder" id="uploadPlaceholder">
+          <div class="upload-icon">📷</div>
+          <p class="upload-text">클릭하거나 이미지를 드래그하세요</p>
+          <p class="upload-hint">JPG, PNG 파일 지원</p>
+        </div>
+        <div class="preview-container" id="previewContainer" hidden>
+          <img id="previewImage" alt="업로드된 이미지">
+          <button class="remove-btn" id="removeBtn" aria-label="이미지 제거">✕</button>
+        </div>
+      </div>
+
+      <button class="analyze-btn" id="analyzeBtn" disabled>
+        성격 분석하기
+      </button>
+    </div>
+
+    <!-- 로딩 애니메이션 -->
+    <div class="loading-section" id="loadingSection" hidden>
+      <div class="loading-spinner"></div>
+      <p class="loading-text">얼굴을 분석하는 중...</p>
+      <p class="loading-subtext">AI가 열심히 관상을 보고 있어요</p>
+    </div>
+
+    <!-- 결과 영역 -->
+    <div class="result-section" id="resultSection" hidden>
+      <div class="result-card">
+        <div class="result-header">
+          <span class="result-emoji" id="resultEmoji">🎭</span>
+          <h2 class="result-type" id="resultType">성격 유형</h2>
+        </div>
+
+        <p class="result-description" id="resultDescription">
+          성격 설명이 여기에 표시됩니다.
+        </p>
+
+        <div class="result-details">
+          <div class="detail-box strength">
+            <h3>💪 강점</h3>
+            <ul id="strengthList"></ul>
+          </div>
+
+          <div class="detail-box weakness">
+            <h3>🔧 개선점</h3>
+            <ul id="weaknessList"></ul>
+          </div>
+        </div>
+
+        <div class="result-extras">
+          <div class="extra-item">
+            <span class="extra-label">어울리는 직업</span>
+            <span class="extra-value" id="jobMatch">직업</span>
+          </div>
+          <div class="extra-item">
+            <span class="extra-label">궁합이 맞는 유형</span>
+            <span class="extra-value" id="typeMatch">유형</span>
+          </div>
+        </div>
+
+        <button class="retry-btn" id="retryBtn">
+          다시 분석하기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="/face-reader.js"></script>
+</body>
+</html>
