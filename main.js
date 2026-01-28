@@ -70,7 +70,6 @@ function selectMeal(meal) {
 
   // 기존 추천 결과 초기화
   document.getElementById('foodGrid').innerHTML = '';
-  document.getElementById('refreshBtn').style.display = 'none';
 }
 
 // 음식 추천
@@ -99,7 +98,4 @@ function recommendFood() {
     `;
     foodGrid.appendChild(card);
   });
-
-  // 다시 추천 버튼 표시
-  document.getElementById('refreshBtn').style.display = 'block';
 }
