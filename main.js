@@ -21,100 +21,6 @@ function toggleTheme() {
 // 페이지 로드 시 테마 초기화
 initTheme();
 
-// 성격 유형 데이터
-const personalityTypes = [
-  {
-    emoji: '👑',
-    type: '숨겨진 리더',
-    description: '당신은 타고난 리더십을 가지고 있습니다. 평소에는 조용히 관찰하지만, 중요한 순간에 핵심을 짚어내는 능력이 뛰어납니다. 사람들은 자연스럽게 당신의 의견을 따르게 되고, 당신은 그 신뢰에 책임감을 느끼는 타입입니다.',
-    strengths: ['뛰어난 판단력', '책임감이 강함', '위기 상황에 침착함'],
-    weaknesses: ['완벽주의 성향', '때로 고집이 셈', '휴식을 잘 취하지 못함'],
-    job: 'CEO, 프로젝트 매니저, 컨설턴트',
-    match: '감성 예술가'
-  },
-  {
-    emoji: '🎨',
-    type: '감성 예술가',
-    description: '당신의 눈에는 세상이 하나의 캔버스로 보입니다. 일상에서도 아름다움을 발견하고, 그것을 표현하고 싶어하는 욕구가 강합니다. 감수성이 풍부하여 다른 사람의 감정을 잘 이해하고 공감할 수 있습니다.',
-    strengths: ['창의력이 뛰어남', '공감 능력이 높음', '독특한 시각을 가짐'],
-    weaknesses: ['현실적인 문제에 약함', '감정 기복이 있음', '결정을 미루는 경향'],
-    job: '디자이너, 작가, 음악가',
-    match: '논리적 분석가'
-  },
-  {
-    emoji: '🔬',
-    type: '논리적 분석가',
-    description: '당신은 모든 것을 분석하고 이해하려는 지적 호기심이 넘칩니다. 복잡한 문제도 체계적으로 분해하여 해결책을 찾아내는 능력이 탁월합니다. 데이터와 논리를 기반으로 한 판단을 선호합니다.',
-    strengths: ['분석력이 뛰어남', '객관적인 판단', '문제 해결 능력'],
-    weaknesses: ['감정 표현이 서툴러요', '융통성이 부족할 때가 있어요', '너무 신중해서 기회를 놓칠 때가 있어요'],
-    job: '개발자, 데이터 분석가, 연구원',
-    match: '열정적 행동파'
-  },
-  {
-    emoji: '🚀',
-    type: '열정적 행동파',
-    description: '당신은 생각보다 행동이 앞서는 타입입니다. 에너지가 넘치고 새로운 도전을 두려워하지 않습니다. 주변 사람들에게 활력을 주고, 분위기 메이커 역할을 자연스럽게 합니다.',
-    strengths: ['실행력이 뛰어남', '긍정적인 에너지', '모험을 즐김'],
-    weaknesses: ['조급할 때가 있어요', '장기적인 계획이 부족할 때가 있어요', '참을성이 부족할 때가 있어요'],
-    job: '기업가, 영업, 이벤트 기획자',
-    match: '논리적 분석가'
-  },
-  {
-    emoji: '🌸',
-    type: '평화주의자',
-    description: '당신은 조화와 균형을 중요시합니다. 갈등을 싫어하고 주변 사람들이 모두 행복하기를 바랍니다. 경청을 잘하고 중재 역할을 맡을 때 빛을 발합니다. 안정적인 환경에서 최고의 능력을 발휘합니다.',
-    strengths: ['경청을 잘함', '중재 능력이 뛰어남', '안정감을 줌'],
-    weaknesses: ['자기주장이 약할 때가 있어요', '갈등 회피 성향', '변화를 두려워할 때가 있어요'],
-    job: '상담사, HR 전문가, 사회복지사',
-    match: '숨겨진 리더'
-  },
-  {
-    emoji: '🎭',
-    type: '매력적인 연예인',
-    description: '당신은 무대 체질입니다. 사람들 앞에 설 때 에너지가 넘치고, 자연스럽게 주목받습니다. 유머 감각이 뛰어나고 대화를 이끌어가는 능력이 탁월합니다. 어디서든 분위기를 밝게 만듭니다.',
-    strengths: ['사교성이 뛰어남', '표현력이 좋음', '유머 감각'],
-    weaknesses: ['혼자 있는 시간이 힘들어요', '깊은 관계를 맺기 어려울 때가 있어요', '인정받고 싶어해요'],
-    job: '연예인, 유튜버, 마케터',
-    match: '평화주의자'
-  },
-  {
-    emoji: '📚',
-    type: '지혜로운 학자',
-    description: '당신은 지식에 대한 갈증이 있습니다. 새로운 것을 배우는 것을 즐기고, 깊이 있는 대화를 선호합니다. 혼자만의 시간을 통해 에너지를 충전하며, 사색하는 것을 좋아합니다.',
-    strengths: ['깊은 사고력', '전문성을 키워감', '신중한 결정'],
-    weaknesses: ['사교 활동이 부담스러울 때가 있어요', '행동보다 생각이 앞서요', '완벽주의 성향'],
-    job: '교수, 연구원, 철학자',
-    match: '열정적 행동파'
-  },
-  {
-    emoji: '🦁',
-    type: '야심찬 정복자',
-    description: '당신은 목표를 향해 돌진하는 타입입니다. 경쟁을 즐기고 승리했을 때 가장 큰 만족을 느낍니다. 강한 의지력으로 어려운 상황도 돌파해 나가며, 높은 기준을 가지고 있습니다.',
-    strengths: ['강한 추진력', '목표 지향적', '자신감'],
-    weaknesses: ['때로 공격적으로 보일 수 있어요', '패배를 인정하기 어려워해요', '다른 사람 배려가 부족할 때가 있어요'],
-    job: '변호사, 운동선수, 투자자',
-    match: '감성 예술가'
-  },
-  {
-    emoji: '🌻',
-    type: '따뜻한 돌봄이',
-    description: '당신은 주변 사람들을 챙기는 것을 자연스럽게 합니다. 다른 사람의 필요를 먼저 알아채고, 도움의 손길을 내밉니다. 당신 곁에 있으면 편안함을 느끼게 되고, 많은 사람들이 당신에게 의지합니다.',
-    strengths: ['배려심이 깊음', '신뢰를 줌', '헌신적'],
-    weaknesses: ['자기 희생이 과할 때가 있어요', '거절을 잘 못해요', '자신을 돌보는 것을 잊어요'],
-    job: '간호사, 교사, 요리사',
-    match: '야심찬 정복자'
-  },
-  {
-    emoji: '🔮',
-    type: '신비로운 몽상가',
-    description: '당신은 현실과 상상의 경계를 자유롭게 넘나듭니다. 직관력이 뛰어나 다른 사람들이 보지 못하는 것을 감지합니다. 독특한 생각과 아이디어로 주변을 놀라게 하며, 신비로운 매력이 있습니다.',
-    strengths: ['뛰어난 직관력', '창의적 상상력', '통찰력'],
-    weaknesses: ['현실 감각이 부족할 때가 있어요', '집중력이 흐트러질 때가 있어요', '실용적인 부분을 놓칠 때가 있어요'],
-    job: '점술가, 소설가, 심리학자',
-    match: '지혜로운 학자'
-  }
-];
-
 // DOM 요소
 const uploadArea = document.getElementById('uploadArea');
 const fileInput = document.getElementById('fileInput');
@@ -125,8 +31,15 @@ const removeBtn = document.getElementById('removeBtn');
 const analyzeBtn = document.getElementById('analyzeBtn');
 const uploadSection = document.getElementById('uploadSection');
 const loadingSection = document.getElementById('loadingSection');
+const loadingText = document.getElementById('loadingText');
+const loadingSubtext = document.getElementById('loadingSubtext');
+const errorSection = document.getElementById('errorSection');
 const resultSection = document.getElementById('resultSection');
 const retryBtn = document.getElementById('retryBtn');
+const errorRetryBtn = document.getElementById('errorRetryBtn');
+
+// 모델 로드 상태
+let modelsLoaded = false;
 
 // 이벤트 리스너
 uploadArea.addEventListener('click', () => fileInput.click());
@@ -134,6 +47,7 @@ fileInput.addEventListener('change', handleFileSelect);
 removeBtn.addEventListener('click', handleRemove);
 analyzeBtn.addEventListener('click', analyzeImage);
 retryBtn.addEventListener('click', resetAnalysis);
+errorRetryBtn.addEventListener('click', resetAnalysis);
 
 // 드래그 앤 드롭
 uploadArea.addEventListener('dragover', (e) => {
@@ -190,60 +104,376 @@ function handleRemove(e) {
   analyzeBtn.disabled = true;
 }
 
+// 모델 로드
+async function loadModels() {
+  const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.12/model';
+
+  await Promise.all([
+    faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+    faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL)
+  ]);
+
+  modelsLoaded = true;
+}
+
 // 이미지 분석
-function analyzeImage() {
+async function analyzeImage() {
   uploadSection.hidden = true;
   loadingSection.hidden = false;
+  errorSection.hidden = true;
   resultSection.hidden = true;
 
-  // 2~3초 후 결과 표시 (분석하는 듯한 효과)
-  const delay = 2000 + Math.random() * 1000;
+  try {
+    // 모델 로드
+    if (!modelsLoaded) {
+      loadingText.textContent = 'AI 모델을 불러오는 중...';
+      loadingSubtext.textContent = '처음 실행 시 잠시 시간이 걸릴 수 있어요';
+      await loadModels();
+    }
 
-  setTimeout(() => {
-    showResult();
-  }, delay);
+    loadingText.textContent = '얼굴을 분석하는 중...';
+    loadingSubtext.textContent = 'AI가 얼굴 특징을 읽고 있어요';
+
+    // 얼굴 감지 및 랜드마크 추출
+    const detection = await faceapi
+      .detectSingleFace(previewImage, new faceapi.TinyFaceDetectorOptions())
+      .withFaceLandmarks();
+
+    if (!detection) {
+      showError('얼굴을 감지하지 못했어요');
+      return;
+    }
+
+    // 얼굴 특징 분석
+    const features = analyzeFaceFeatures(detection.landmarks);
+
+    // 결과 생성 및 표시
+    showResult(features);
+
+  } catch (error) {
+    console.error('분석 중 오류:', error);
+    showError('분석 중 오류가 발생했어요');
+  }
+}
+
+// 얼굴 특징 분석
+function analyzeFaceFeatures(landmarks) {
+  // 주요 포인트 추출
+  const leftEye = landmarks.getLeftEye();
+  const rightEye = landmarks.getRightEye();
+  const mouth = landmarks.getMouth();
+  const jawOutline = landmarks.getJawOutline();
+  const leftEyebrow = landmarks.getLeftEyeBrow();
+  const rightEyebrow = landmarks.getRightEyeBrow();
+
+  // 1. 눈매 분석 (눈꼬리 각도)
+  const leftEyeAngle = calculateEyeAngle(leftEye);
+  const rightEyeAngle = calculateEyeAngle(rightEye);
+  const avgEyeAngle = (leftEyeAngle + rightEyeAngle) / 2;
+
+  // 2. 입꼬리 분석
+  const mouthCornerAngle = calculateMouthAngle(mouth);
+
+  // 3. 얼굴형 분석 (가로/세로 비율)
+  const faceRatio = calculateFaceRatio(jawOutline);
+
+  // 4. 눈썹 각도
+  const eyebrowAngle = calculateEyebrowAngle(leftEyebrow, rightEyebrow);
+
+  // 5. 눈 크기 (상대적)
+  const eyeSize = calculateEyeSize(leftEye, rightEye, jawOutline);
+
+  // 특징 분류
+  const features = {
+    // 눈매: 부드러움 vs 날카로움 (-1 ~ 1)
+    eyeShape: classifyEyeShape(avgEyeAngle),
+
+    // 입꼬리: 올라감 vs 내려감 (-1 ~ 1)
+    mouthShape: classifyMouthShape(mouthCornerAngle),
+
+    // 얼굴형: 둥근형 vs 각진형 (-1 ~ 1)
+    faceShape: classifyFaceShape(faceRatio),
+
+    // 눈썹: 부드러움 vs 강함 (-1 ~ 1)
+    eyebrowShape: classifyEyebrowShape(eyebrowAngle),
+
+    // 눈 크기: 작음 vs 큼 (-1 ~ 1)
+    eyeSizeClass: classifyEyeSize(eyeSize)
+  };
+
+  return features;
+}
+
+// 눈꼬리 각도 계산
+function calculateEyeAngle(eye) {
+  const innerCorner = eye[0];
+  const outerCorner = eye[3];
+  const angle = Math.atan2(outerCorner.y - innerCorner.y, outerCorner.x - innerCorner.x);
+  return angle * (180 / Math.PI);
+}
+
+// 입꼬리 각도 계산
+function calculateMouthAngle(mouth) {
+  const leftCorner = mouth[0];
+  const rightCorner = mouth[6];
+  const center = mouth[3];
+
+  const leftAngle = Math.atan2(center.y - leftCorner.y, center.x - leftCorner.x);
+  const rightAngle = Math.atan2(center.y - rightCorner.y, rightCorner.x - center.x);
+
+  return (leftAngle + rightAngle) / 2 * (180 / Math.PI);
+}
+
+// 얼굴 비율 계산
+function calculateFaceRatio(jawOutline) {
+  const leftMost = jawOutline[0];
+  const rightMost = jawOutline[16];
+  const bottom = jawOutline[8];
+  const top = jawOutline[0];
+
+  const width = Math.abs(rightMost.x - leftMost.x);
+  const height = Math.abs(bottom.y - top.y);
+
+  return width / height;
+}
+
+// 눈썹 각도 계산
+function calculateEyebrowAngle(leftBrow, rightBrow) {
+  const leftAngle = Math.atan2(
+    leftBrow[4].y - leftBrow[0].y,
+    leftBrow[4].x - leftBrow[0].x
+  ) * (180 / Math.PI);
+
+  const rightAngle = Math.atan2(
+    rightBrow[0].y - rightBrow[4].y,
+    rightBrow[0].x - rightBrow[4].x
+  ) * (180 / Math.PI);
+
+  return (Math.abs(leftAngle) + Math.abs(rightAngle)) / 2;
+}
+
+// 눈 크기 계산
+function calculateEyeSize(leftEye, rightEye, jawOutline) {
+  const leftHeight = Math.abs(leftEye[1].y - leftEye[5].y);
+  const rightHeight = Math.abs(rightEye[1].y - rightEye[5].y);
+  const avgEyeHeight = (leftHeight + rightHeight) / 2;
+
+  const faceHeight = Math.abs(jawOutline[8].y - jawOutline[0].y);
+
+  return avgEyeHeight / faceHeight;
+}
+
+// 분류 함수들
+function classifyEyeShape(angle) {
+  // 눈꼬리가 올라갈수록 양수, 내려갈수록 음수
+  if (angle < -3) return 1;      // 날카로운 눈매
+  if (angle > 3) return -1;      // 부드러운 눈매
+  return angle / 3;              // 중간
+}
+
+function classifyMouthShape(angle) {
+  // 입꼬리가 올라갈수록 양수
+  if (angle < -5) return -1;     // 내려간 입꼬리
+  if (angle > 5) return 1;       // 올라간 입꼬리
+  return angle / 5;
+}
+
+function classifyFaceShape(ratio) {
+  // 비율이 높을수록 넓은(둥근) 얼굴
+  if (ratio > 1.4) return -1;    // 둥근형
+  if (ratio < 1.1) return 1;     // 각진형
+  return (1.25 - ratio) / 0.15;
+}
+
+function classifyEyebrowShape(angle) {
+  // 각도가 클수록 강한 눈썹
+  if (angle > 15) return 1;      // 강한 눈썹
+  if (angle < 5) return -1;      // 부드러운 눈썹
+  return (angle - 10) / 5;
+}
+
+function classifyEyeSize(size) {
+  if (size > 0.08) return 1;     // 큰 눈
+  if (size < 0.05) return -1;    // 작은 눈
+  return (size - 0.065) / 0.015;
+}
+
+// 에러 표시
+function showError(message) {
+  loadingSection.hidden = true;
+  errorSection.hidden = false;
+  document.getElementById('errorText').textContent = message;
 }
 
 // 결과 표시
-function showResult() {
+function showResult(features) {
   loadingSection.hidden = true;
   resultSection.hidden = false;
 
-  // 랜덤 성격 유형 선택
-  const randomIndex = Math.floor(Math.random() * personalityTypes.length);
-  const personality = personalityTypes[randomIndex];
+  // 특징 태그 생성
+  const featureTags = document.getElementById('featureTags');
+  featureTags.innerHTML = '';
 
-  // 결과 업데이트
-  document.getElementById('resultEmoji').textContent = personality.emoji;
-  document.getElementById('resultType').textContent = personality.type;
-  document.getElementById('resultDescription').textContent = personality.description;
-
-  // 강점 리스트
-  const strengthList = document.getElementById('strengthList');
-  strengthList.innerHTML = '';
-  personality.strengths.forEach(strength => {
-    const li = document.createElement('li');
-    li.textContent = strength;
-    strengthList.appendChild(li);
+  const tags = generateFeatureTags(features);
+  tags.forEach(tag => {
+    const tagEl = document.createElement('span');
+    tagEl.className = 'feature-tag';
+    tagEl.textContent = tag;
+    featureTags.appendChild(tagEl);
   });
 
-  // 약점 리스트
-  const weaknessList = document.getElementById('weaknessList');
-  weaknessList.innerHTML = '';
-  personality.weaknesses.forEach(weakness => {
-    const li = document.createElement('li');
-    li.textContent = weakness;
-    weaknessList.appendChild(li);
-  });
+  // 각 섹션 내용 생성
+  document.getElementById('firstImpression').textContent = generateFirstImpression(features);
+  document.getElementById('personalityTendency').textContent = generatePersonalityTendency(features);
+  document.getElementById('loveStyle').textContent = generateLoveStyle(features);
+  document.getElementById('workStyle').textContent = generateWorkStyle(features);
+}
 
-  // 추가 정보
-  document.getElementById('jobMatch').textContent = personality.job;
-  document.getElementById('typeMatch').textContent = personality.match;
+// 특징 태그 생성
+function generateFeatureTags(features) {
+  const tags = [];
+
+  if (features.eyeShape > 0.3) tags.push('날카로운 눈매');
+  else if (features.eyeShape < -0.3) tags.push('부드러운 눈매');
+  else tags.push('온화한 눈매');
+
+  if (features.mouthShape > 0.3) tags.push('밝은 인상');
+  else if (features.mouthShape < -0.3) tags.push('차분한 인상');
+  else tags.push('편안한 인상');
+
+  if (features.faceShape > 0.3) tags.push('또렷한 윤곽');
+  else if (features.faceShape < -0.3) tags.push('부드러운 윤곽');
+  else tags.push('균형잡힌 윤곽');
+
+  if (features.eyeSizeClass > 0.3) tags.push('큰 눈');
+  else if (features.eyeSizeClass < -0.3) tags.push('깊은 눈');
+
+  return tags;
+}
+
+// 첫인상 생성
+function generateFirstImpression(features) {
+  let impression = '';
+
+  // 눈매 기반
+  if (features.eyeShape > 0.3) {
+    impression += '처음 만났을 때 카리스마 있고 자신감이 느껴지는 인상을 주는 경향이 있어요. ';
+  } else if (features.eyeShape < -0.3) {
+    impression += '처음 만났을 때 다정하고 친근한 느낌을 주는 편이에요. 사람들이 편하게 다가오는 경우가 많아요. ';
+  } else {
+    impression += '처음 만났을 때 신뢰감 있고 안정적인 인상을 주는 편이에요. ';
+  }
+
+  // 입꼬리 기반
+  if (features.mouthShape > 0.3) {
+    impression += '밝고 긍정적인 에너지가 느껴져서, 주변 분위기를 환하게 만드는 경향이 있어요.';
+  } else if (features.mouthShape < -0.3) {
+    impression += '진중하고 신중한 느낌을 주어, 믿음직스러운 인상을 주는 경우가 많아요.';
+  } else {
+    impression += '적당히 친근하면서도 진지한 느낌의 균형 잡힌 인상을 주는 편이에요.';
+  }
+
+  return impression;
+}
+
+// 성격 경향 생성
+function generatePersonalityTendency(features) {
+  let personality = '';
+
+  // 얼굴형 기반
+  if (features.faceShape > 0.3) {
+    personality += '자기 기준이 명확하고, 한 번 결정한 것은 끝까지 밀고 나가는 성향을 보이는 경우가 많아요. ';
+  } else if (features.faceShape < -0.3) {
+    personality += '유연하고 포용력이 있으며, 다양한 의견을 수용하는 열린 마음을 가진 경향이 있어요. ';
+  } else {
+    personality += '상황에 따라 유연하게 대처하면서도, 중요한 순간에는 자신의 기준을 지키는 편이에요. ';
+  }
+
+  // 눈매 기반
+  if (features.eyeShape > 0.3) {
+    personality += '목표 지향적이고 분석적인 사고를 하는 편이며, ';
+  } else if (features.eyeShape < -0.3) {
+    personality += '공감 능력이 높고 다른 사람의 감정을 잘 이해하는 편이며, ';
+  } else {
+    personality += '이성과 감성의 균형을 잘 맞추는 편이며, ';
+  }
+
+  // 눈썹 기반
+  if (features.eyebrowShape > 0.3) {
+    personality += '의지가 강하고 추진력이 있는 성격일 가능성이 높아요.';
+  } else if (features.eyebrowShape < -0.3) {
+    personality += '섬세하고 배려심이 깊은 성격일 가능성이 높아요.';
+  } else {
+    personality += '차분하면서도 필요할 때 결단력을 보이는 성격일 가능성이 높아요.';
+  }
+
+  return personality;
+}
+
+// 연애 스타일 생성
+function generateLoveStyle(features) {
+  let love = '';
+
+  // 눈 크기와 눈매 기반
+  if (features.eyeSizeClass > 0.3) {
+    love += '감정 표현이 풍부하고, 연인에게 애정을 적극적으로 표현하는 편일 수 있어요. ';
+  } else if (features.eyeSizeClass < -0.3) {
+    love += '감정을 깊이 느끼지만 표현은 은근하게 하는 편일 수 있어요. 진심이 담긴 행동으로 마음을 전하는 경향이 있어요. ';
+  } else {
+    love += '상황에 맞게 감정을 표현하며, 자연스럽게 애정을 전달하는 편이에요. ';
+  }
+
+  // 입꼬리 기반
+  if (features.mouthShape > 0.3) {
+    love += '밝고 유쾌한 분위기를 만들어, 함께 있으면 즐거운 연인 유형일 가능성이 있어요. ';
+  } else if (features.mouthShape < -0.3) {
+    love += '깊고 진지한 대화를 선호하며, 신뢰를 중요시하는 연인 유형일 가능성이 있어요. ';
+  }
+
+  // 얼굴형 기반
+  if (features.faceShape > 0.3) {
+    love += '연애에서도 자신의 가치관을 중요시하며, 서로 성장하는 관계를 추구하는 경향이 있어요.';
+  } else {
+    love += '상대방의 의견을 존중하고, 함께 맞춰가는 관계를 선호하는 경향이 있어요.';
+  }
+
+  return love;
+}
+
+// 사회/직장 스타일 생성
+function generateWorkStyle(features) {
+  let work = '';
+
+  // 눈매와 눈썹 기반
+  if (features.eyeShape > 0.3 && features.eyebrowShape > 0.3) {
+    work += '리더십을 발휘하는 위치에서 빛을 발하는 경우가 많아요. 팀을 이끌거나 프로젝트를 주도하는 역할이 잘 맞을 수 있어요. ';
+  } else if (features.eyeShape < -0.3) {
+    work += '팀원들과의 협업에서 강점을 보이며, 분위기를 조율하고 갈등을 중재하는 역할을 잘 해내는 경향이 있어요. ';
+  } else {
+    work += '상황에 따라 리더와 팔로워 역할 모두 유연하게 수행할 수 있는 편이에요. ';
+  }
+
+  // 입꼬리 기반
+  if (features.mouthShape > 0.3) {
+    work += '사람들과의 네트워킹에 능하고, 대외적인 업무에서 좋은 성과를 내는 경우가 많아요. ';
+  } else if (features.mouthShape < -0.3) {
+    work += '깊이 있는 분석과 신중한 의사결정이 필요한 업무에서 강점을 보이는 경향이 있어요. ';
+  }
+
+  // 얼굴형 기반
+  if (features.faceShape > 0.3) {
+    work += '명확한 목표를 세우고 체계적으로 일을 처리하는 스타일일 가능성이 높아요.';
+  } else {
+    work += '창의적인 접근과 유연한 문제 해결 능력을 가진 스타일일 가능성이 높아요.';
+  }
+
+  return work;
 }
 
 // 분석 초기화
 function resetAnalysis() {
   resultSection.hidden = true;
+  errorSection.hidden = true;
   uploadSection.hidden = false;
 
   // 이미지 초기화

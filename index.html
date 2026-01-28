@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>얼굴로 보는 성격 분석</title>
   <link href='/style.css' rel='stylesheet'>
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
 </head>
 <body>
   <div class="theme-toggle-container">
@@ -16,7 +17,7 @@
 
   <div class="container">
     <h1>얼굴로 보는 성격 분석</h1>
-    <p class="subtitle">사진을 업로드하면 재미있는 성격 분석 결과를 알려드려요</p>
+    <p class="subtitle">AI가 얼굴 특징을 분석하여 성격 경향을 알려드려요</p>
 
     <!-- 업로드 영역 -->
     <div class="upload-section" id="uploadSection">
@@ -25,7 +26,7 @@
         <div class="upload-placeholder" id="uploadPlaceholder">
           <div class="upload-icon">📷</div>
           <p class="upload-text">클릭하거나 이미지를 드래그하세요</p>
-          <p class="upload-hint">JPG, PNG 파일 지원</p>
+          <p class="upload-hint">정면 얼굴 사진을 권장합니다</p>
         </div>
         <div class="preview-container" id="previewContainer" hidden>
           <img id="previewImage" alt="업로드된 이미지">
@@ -41,49 +42,67 @@
     <!-- 로딩 애니메이션 -->
     <div class="loading-section" id="loadingSection" hidden>
       <div class="loading-spinner"></div>
-      <p class="loading-text">얼굴을 분석하는 중...</p>
-      <p class="loading-subtext">AI가 열심히 관상을 보고 있어요</p>
+      <p class="loading-text" id="loadingText">AI 모델을 불러오는 중...</p>
+      <p class="loading-subtext" id="loadingSubtext">처음 실행 시 잠시 시간이 걸릴 수 있어요</p>
+    </div>
+
+    <!-- 에러 메시지 -->
+    <div class="error-section" id="errorSection" hidden>
+      <div class="error-icon">😅</div>
+      <p class="error-text" id="errorText">얼굴을 감지하지 못했어요</p>
+      <p class="error-subtext">정면을 바라보는 선명한 사진으로 다시 시도해주세요</p>
+      <button class="retry-btn" id="errorRetryBtn">다시 시도하기</button>
     </div>
 
     <!-- 결과 영역 -->
     <div class="result-section" id="resultSection" hidden>
-      <div class="result-card">
-        <div class="result-header">
-          <span class="result-emoji" id="resultEmoji">🎭</span>
-          <h2 class="result-type" id="resultType">성격 유형</h2>
-        </div>
-
-        <p class="result-description" id="resultDescription">
-          성격 설명이 여기에 표시됩니다.
-        </p>
-
-        <div class="result-details">
-          <div class="detail-box strength">
-            <h3>💪 강점</h3>
-            <ul id="strengthList"></ul>
-          </div>
-
-          <div class="detail-box weakness">
-            <h3>🔧 개선점</h3>
-            <ul id="weaknessList"></ul>
-          </div>
-        </div>
-
-        <div class="result-extras">
-          <div class="extra-item">
-            <span class="extra-label">어울리는 직업</span>
-            <span class="extra-value" id="jobMatch">직업</span>
-          </div>
-          <div class="extra-item">
-            <span class="extra-label">궁합이 맞는 유형</span>
-            <span class="extra-value" id="typeMatch">유형</span>
-          </div>
-        </div>
-
-        <button class="retry-btn" id="retryBtn">
-          다시 분석하기
-        </button>
+      <!-- 분석된 얼굴 특징 요약 -->
+      <div class="feature-summary" id="featureSummary">
+        <h3>감지된 얼굴 특징</h3>
+        <div class="feature-tags" id="featureTags"></div>
       </div>
+
+      <!-- 첫인상 -->
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">👋</span>
+          <h2>첫인상</h2>
+        </div>
+        <p class="result-card-content" id="firstImpression"></p>
+      </div>
+
+      <!-- 성격 경향 -->
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">🧠</span>
+          <h2>성격 경향</h2>
+        </div>
+        <p class="result-card-content" id="personalityTendency"></p>
+      </div>
+
+      <!-- 연애에서의 모습 -->
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">💕</span>
+          <h2>연애에서의 모습</h2>
+        </div>
+        <p class="result-card-content" id="loveStyle"></p>
+      </div>
+
+      <!-- 사회/직장 스타일 -->
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">💼</span>
+          <h2>사회/직장 스타일</h2>
+        </div>
+        <p class="result-card-content" id="workStyle"></p>
+      </div>
+
+      <div class="result-disclaimer">
+        <p>※ 본 분석은 재미를 위한 것으로, 과학적 근거가 있는 것은 아닙니다.</p>
+      </div>
+
+      <button class="retry-btn" id="retryBtn">다른 사진으로 분석하기</button>
     </div>
   </div>
 
