@@ -17,13 +17,13 @@
 /* 다크모드 변수 */
 [data-theme="dark"] {
   --bg-color: #1a1a2e;
-  --text-color: #eaeaea;
+  --text-color: #f5f5f5;
   --card-bg: #16213e;
   --btn-bg: #ff6b6b;
   --btn-text: #ffffff;
   --btn-hover: #ee5a5a;
-  --btn-secondary-bg: #4ecdc4;
-  --btn-secondary-hover: #45b7aa;
+  --btn-secondary-bg: #00e5c9;
+  --btn-secondary-hover: #00ccb3;
   --toggle-bg: #4a4a6a;
   --toggle-circle: #1a1a2e;
   --shadow: rgba(0, 0, 0, 0.3);
