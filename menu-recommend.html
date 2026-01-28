@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>오늘 뭐 먹지?</title>
+  <link href='/menu-recommend.css' rel='stylesheet'>
+</head>
+<body>
+  <div class="theme-toggle-container">
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <span class="icon moon">🌙</span>
+      <span class="icon sun">☀️</span>
+    </button>
+  </div>
+
+  <div class="container">
+    <h1>오늘 뭐 먹지?</h1>
+    <p class="subtitle">점심 또는 저녁 메뉴를 추천해 드릴게요</p>
+
+    <div class="meal-select">
+      <button class="meal-btn" data-meal="lunch" onclick="selectMeal('lunch')">
+        점심
+      </button>
+      <button class="meal-btn" data-meal="dinner" onclick="selectMeal('dinner')">
+        저녁
+      </button>
+    </div>
+
+    <button class="recommend-btn" onclick="recommendFood()" disabled>
+      추천 받기
+    </button>
+
+    <div class="food-grid" id="foodGrid">
+      <!-- 추천 음식이 여기에 표시됩니다 -->
+    </div>
+
+  </div>
+
+  <div class="comments-section">
+    <h2>댓글</h2>
+    <p class="comments-subtitle">추천받은 메뉴에 대한 의견을 남겨주세요</p>
+    <div id="disqus_thread"></div>
+    <script>
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://isaac-lecture.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+
+  <div class="contact-section">
+    <h2>비즈니스 제휴 문의</h2>
+    <p class="contact-subtitle">제휴 및 협업 관련 문의를 남겨주세요</p>
+
+    <form action="https://formspree.io/f/mojdozjb" method="POST" class="contact-form">
+      <div class="form-group">
+        <label for="name">이름 *</label>
+        <input type="text" id="name" name="name" required placeholder="홍길동">
+      </div>
+
+      <div class="form-group">
+        <label for="email">이메일 *</label>
+        <input type="email" id="email" name="email" required placeholder="example@company.com">
+      </div>
+
+      <div class="form-group">
+        <label for="company">회사명</label>
+        <input type="text" id="company" name="company" placeholder="회사명을 입력하세요">
+      </div>
+
+      <div class="form-group">
+        <label for="message">문의 내용 *</label>
+        <textarea id="message" name="message" rows="5" required placeholder="제휴 관련 문의 내용을 작성해 주세요"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">문의하기</button>
+    </form>
+  </div>
+
+  <script type="text/javascript" src="/menu-recommend.js"></script>
+</body>
+</html>
