@@ -1,1 +1,127 @@
-/* Add styles here */
+/* CSS 변수 정의 */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --btn-bg: #007bff;
+  --btn-text: #ffffff;
+  --btn-hover: #0056b3;
+  --toggle-bg: #e0e0e0;
+  --toggle-circle: #ffffff;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* 다크모드 변수 */
+[data-theme="dark"] {
+  --bg-color: #1a1a2e;
+  --text-color: #eaeaea;
+  --btn-bg: #4a90d9;
+  --btn-text: #ffffff;
+  --btn-hover: #357abd;
+  --toggle-bg: #4a4a6a;
+  --toggle-circle: #1a1a2e;
+  --shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* 기본 스타일 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* 테마 토글 컨테이너 */
+.theme-toggle-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+/* 테마 토글 버튼 */
+.theme-toggle {
+  width: 60px;
+  height: 30px;
+  background-color: var(--toggle-bg);
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  box-shadow: 0 2px 5px var(--shadow);
+}
+
+.theme-toggle::before {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-color: var(--toggle-circle);
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .theme-toggle::before {
+  transform: translateX(30px);
+  background-color: #ffd700;
+}
+
+/* 아이콘 표시 */
+.theme-toggle .icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+}
+
+.theme-toggle .sun {
+  right: 8px;
+}
+
+.theme-toggle .moon {
+  left: 8px;
+}
+
+/* 헤딩 스타일 */
+h1 {
+  font-size: 3rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* 일반 버튼 스타일 */
+button:not(.theme-toggle) {
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px var(--shadow);
+  transition: all 0.3s ease;
+}
+
+button:not(.theme-toggle):hover {
+  background-color: var(--btn-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px var(--shadow);
+}
+
+button:not(.theme-toggle):active {
+  transform: translateY(0);
+}
