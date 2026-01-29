@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://isaac-lecture.pages.dev/sitemap.xml
