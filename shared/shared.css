@@ -262,6 +262,10 @@ h1 {
   text-align: left;
 }
 
+[data-theme="dark"] #disqus_thread iframe {
+  filter: invert(1) hue-rotate(180deg);
+}
+
 /* ===================== */
 /* 연락 폼               */
 /* ===================== */
