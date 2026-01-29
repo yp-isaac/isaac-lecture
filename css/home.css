@@ -1,0 +1,79 @@
+/* 홈페이지 전용 스타일 */
+
+.hero {
+  margin-bottom: 50px;
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+}
+
+.hero .subtitle {
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+}
+
+/* 도구 카드 그리드 */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.tool-card {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  padding: 28px 24px;
+  box-shadow: 0 4px 15px var(--shadow);
+  text-decoration: none;
+  color: var(--text-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: block;
+}
+
+.tool-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px var(--shadow);
+}
+
+.tool-card-icon {
+  font-size: 2.4rem;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.tool-card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  color: var(--accent-color);
+}
+
+.tool-card p {
+  font-size: 0.9rem;
+  opacity: 0.75;
+  line-height: 1.5;
+}
+
+.tool-card .coming-soon {
+  display: inline-block;
+  font-size: 0.75rem;
+  background-color: var(--tag-bg);
+  color: var(--tag-text);
+  padding: 3px 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .tool-grid {
+    grid-template-columns: 1fr;
+  }
+}

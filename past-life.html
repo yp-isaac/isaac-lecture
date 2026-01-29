@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="생년월일로 알아보는 나의 전생! 수비학 기반으로 전생의 시대, 직업, 스토리를 확인해보세요.">
+  <title>전생 테스트 - 아이작</title>
+  <link href="/shared/shared.css" rel="stylesheet">
+  <link href="/css/past-life.css" rel="stylesheet">
+</head>
+<body data-page="past-life">
+  <div id="site-nav"></div>
+
+  <div class="container">
+    <h1>전생 테스트</h1>
+    <p class="subtitle">생년월일로 알아보는 나의 전생 이야기</p>
+    <p class="disclaimer-top">※ 재미로 보는 테스트이며, 실제와 다를 수 있습니다.</p>
+
+    <!-- 입력 영역 -->
+    <div class="input-section" id="inputSection">
+      <div class="input-card">
+        <div class="input-icon">🔮</div>
+        <p class="input-desc">생년월일을 입력하면<br>전생의 이야기를 들려드릴게요</p>
+        <div class="date-inputs">
+          <div class="date-field">
+            <label for="birthYear">년</label>
+            <input type="number" id="birthYear" min="1920" max="2025" placeholder="1995">
+          </div>
+          <div class="date-field">
+            <label for="birthMonth">월</label>
+            <select id="birthMonth">
+              <option value="" disabled selected>선택</option>
+              <option value="1">1월</option>
+              <option value="2">2월</option>
+              <option value="3">3월</option>
+              <option value="4">4월</option>
+              <option value="5">5월</option>
+              <option value="6">6월</option>
+              <option value="7">7월</option>
+              <option value="8">8월</option>
+              <option value="9">9월</option>
+              <option value="10">10월</option>
+              <option value="11">11월</option>
+              <option value="12">12월</option>
+            </select>
+          </div>
+          <div class="date-field">
+            <label for="birthDay">일</label>
+            <select id="birthDay">
+              <option value="" disabled selected>선택</option>
+            </select>
+          </div>
+        </div>
+        <button class="analyze-btn" id="analyzeBtn" disabled>전생 알아보기</button>
+      </div>
+    </div>
+
+    <!-- 로딩 -->
+    <div class="loading-section" id="loadingSection" hidden>
+      <div class="loading-spinner"></div>
+      <p class="loading-text">전생의 기억을 불러오는 중...</p>
+      <p class="loading-subtext">시간의 문을 열고 있어요</p>
+    </div>
+
+    <!-- 결과 영역 -->
+    <div class="result-section" id="resultSection" hidden>
+      <div class="result-hero-card" id="resultHeroCard">
+        <div class="result-era" id="resultEra"></div>
+        <div class="result-emoji" id="resultEmoji"></div>
+        <h2 class="result-job" id="resultJob"></h2>
+        <p class="result-period" id="resultPeriod"></p>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">📜</span>
+          <h2>전생 스토리</h2>
+        </div>
+        <p class="result-card-content" id="resultStory"></p>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">🔗</span>
+          <h2>현생과의 연결</h2>
+        </div>
+        <p class="result-card-content" id="resultConnection"></p>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">🍀</span>
+          <h2>전생이 알려주는 행운</h2>
+        </div>
+        <p class="result-card-content" id="resultLucky"></p>
+      </div>
+
+      <div class="result-disclaimer">
+        <p>이 테스트는 재미를 위한 것이며, 실제 전생과는 관련이 없습니다.</p>
+      </div>
+
+      <button class="retry-btn" id="retryBtn">다시 테스트하기</button>
+    </div>
+  </div>
+
+  <div class="comments-section">
+    <h2>댓글</h2>
+    <p class="comments-subtitle">나의 전생 결과를 공유해보세요</p>
+    <div id="disqus_thread"></div>
+    <script>
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://isaac-lecture.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/shared/shared.js"></script>
+  <script src="/js/past-life.js"></script>
+</body>
+</html>

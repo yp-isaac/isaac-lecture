@@ -3,154 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>얼굴로 보는 성격 분석</title>
-  <link href='/style.css' rel='stylesheet'>
-  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <meta name="description" content="AI 얼굴 분석, 퍼스널 칼라, 심리테스트, 운세 등 다양한 재미있는 무료 테스트를 즐겨보세요.">
+  <title>아이작 - 재미있는 테스트 모음</title>
+  <link href="/shared/shared.css" rel="stylesheet">
+  <link href="/css/home.css" rel="stylesheet">
 </head>
-<body>
-  <div class="theme-toggle-container">
-    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-      <span class="icon moon">🌙</span>
-      <span class="icon sun">☀️</span>
-    </button>
-  </div>
+<body data-page="home">
+  <div id="site-nav"></div>
 
   <div class="container">
-    <h1>얼굴로 보는 성격 분석</h1>
-    <p class="subtitle">AI가 얼굴 특징을 분석하여 성격 경향을 알려드려요</p>
-    <p class="disclaimer-top">※ 재미로 보는 분석이며, 실제 성격과 다를 수 있습니다.</p>
-
-    <!-- 업로드 영역 -->
-    <div class="upload-section" id="uploadSection">
-      <div class="upload-area" id="uploadArea">
-        <input type="file" id="fileInput" accept="image/*" hidden>
-        <div class="upload-placeholder" id="uploadPlaceholder">
-          <div class="upload-icon">📷</div>
-          <p class="upload-text">클릭하거나 이미지를 드래그하세요</p>
-          <p class="upload-hint">정면 얼굴 사진을 권장합니다</p>
-        </div>
-        <div class="preview-container" id="previewContainer" hidden>
-          <img id="previewImage" alt="업로드된 이미지">
-          <button class="remove-btn" id="removeBtn" aria-label="이미지 제거">✕</button>
-        </div>
-      </div>
-
-      <button class="analyze-btn" id="analyzeBtn" disabled>
-        성격 분석하기
-      </button>
+    <div class="hero">
+      <h1>재미있는 테스트 모음</h1>
+      <p class="subtitle">AI 분석부터 심리테스트까지, 다양한 무료 테스트를 즐겨보세요</p>
     </div>
 
-    <!-- 로딩 애니메이션 -->
-    <div class="loading-section" id="loadingSection" hidden>
-      <div class="loading-spinner"></div>
-      <p class="loading-text" id="loadingText">AI 모델을 불러오는 중...</p>
-      <p class="loading-subtext" id="loadingSubtext">처음 실행 시 잠시 시간이 걸릴 수 있어요</p>
-    </div>
+    <div class="tool-grid">
+      <a href="/face-personality.html" class="tool-card">
+        <span class="tool-card-icon">📷</span>
+        <h2>얼굴 성격 분석</h2>
+        <p>AI가 얼굴 특징을 분석하여 첫인상, 성격 경향, 연애 스타일을 알려드려요</p>
+      </a>
 
-    <!-- 에러 메시지 -->
-    <div class="error-section" id="errorSection" hidden>
-      <div class="error-icon">😅</div>
-      <p class="error-text" id="errorText">얼굴을 감지하지 못했어요</p>
-      <p class="error-subtext">정면을 바라보는 선명한 사진으로 다시 시도해주세요</p>
-      <button class="retry-btn" id="errorRetryBtn">다시 시도하기</button>
-    </div>
+      <a href="/face-age.html" class="tool-card">
+        <span class="tool-card-icon">🧒</span>
+        <h2>얼굴 나이 테스트</h2>
+        <p>AI가 추정하는 내 얼굴 나이는? 동안인지 노안인지 확인해보세요</p>
+      </a>
 
-    <!-- 결과 영역 -->
-    <div class="result-section" id="resultSection" hidden>
-      <!-- 분석된 얼굴 특징 요약 -->
-      <div class="feature-summary" id="featureSummary">
-        <h3>감지된 얼굴 특징</h3>
-        <div class="feature-tags" id="featureTags"></div>
-      </div>
+      <a href="/personal-color.html" class="tool-card">
+        <span class="tool-card-icon">🎨</span>
+        <h2>퍼스널 칼라 진단</h2>
+        <p>사진 한 장으로 나에게 어울리는 컬러 톤을 알아보세요</p>
+      </a>
 
-      <!-- 첫인상 -->
-      <div class="result-card">
-        <div class="result-card-header">
-          <span class="result-card-icon">👋</span>
-          <h2>첫인상</h2>
-        </div>
-        <p class="result-card-content" id="firstImpression"></p>
-      </div>
+      <a href="/quiz-love-type.html" class="tool-card">
+        <span class="tool-card-icon">💕</span>
+        <h2>연애 유형 테스트</h2>
+        <p>나는 어떤 연애 유형일까? 심리테스트로 알아보세요</p>
+      </a>
 
-      <!-- 성격 경향 -->
-      <div class="result-card">
-        <div class="result-card-header">
-          <span class="result-card-icon">🧠</span>
-          <h2>성격 경향</h2>
-        </div>
-        <p class="result-card-content" id="personalityTendency"></p>
-      </div>
+      <a href="/quiz-relationship.html" class="tool-card">
+        <span class="tool-card-icon">🤝</span>
+        <h2>인간관계 유형 테스트</h2>
+        <p>사회 속에서 나는 어떤 유형? 관계 스타일을 분석해드려요</p>
+      </a>
 
-      <!-- 연애에서의 모습 -->
-      <div class="result-card">
-        <div class="result-card-header">
-          <span class="result-card-icon">💕</span>
-          <h2>연애에서의 모습</h2>
-        </div>
-        <p class="result-card-content" id="loveStyle"></p>
-      </div>
+      <a href="/past-life.html" class="tool-card">
+        <span class="tool-card-icon">🔮</span>
+        <h2>전생 테스트</h2>
+        <p>생년월일로 알아보는 나의 전생 시대와 직업은?</p>
+      </a>
 
-      <!-- 사회/직장 스타일 -->
-      <div class="result-card">
-        <div class="result-card-header">
-          <span class="result-card-icon">💼</span>
-          <h2>사회/직장 스타일</h2>
-        </div>
-        <p class="result-card-content" id="workStyle"></p>
-      </div>
-
-      <div class="result-disclaimer">
-        <p>얼굴 인상은 환경, 표정, 컨디션에 따라 달라질 수 있으며, 이 분석은 현재 이미지 기준의 경향을 바탕으로 합니다.</p>
-      </div>
-
-      <button class="retry-btn" id="retryBtn">다른 사진으로 분석하기</button>
+      <a href="/today-fortune.html" class="tool-card">
+        <span class="tool-card-icon">⭐</span>
+        <h2>오늘의 운세</h2>
+        <p>생년월일로 보는 별자리, 띠, 오늘의 운세를 확인하세요</p>
+      </a>
     </div>
   </div>
 
-  <div class="comments-section">
-    <h2>댓글</h2>
-    <p class="comments-subtitle">분석 결과에 대한 의견을 남겨주세요</p>
-    <div id="disqus_thread"></div>
-    <script>
-      (function() {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://isaac-lecture.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
+  <div id="site-footer"></div>
 
-  <div class="contact-section">
-    <h2>비즈니스 제휴 문의</h2>
-    <p class="contact-subtitle">제휴 및 협업 관련 문의를 남겨주세요</p>
-
-    <form action="https://formspree.io/f/mojdozjb" method="POST" class="contact-form">
-      <div class="form-group">
-        <label for="name">이름 *</label>
-        <input type="text" id="name" name="name" required placeholder="홍길동">
-      </div>
-
-      <div class="form-group">
-        <label for="email">이메일 *</label>
-        <input type="email" id="email" name="email" required placeholder="example@company.com">
-      </div>
-
-      <div class="form-group">
-        <label for="company">회사명</label>
-        <input type="text" id="company" name="company" placeholder="회사명을 입력하세요">
-      </div>
-
-      <div class="form-group">
-        <label for="message">문의 내용 *</label>
-        <textarea id="message" name="message" rows="5" required placeholder="제휴 관련 문의 내용을 작성해 주세요"></textarea>
-      </div>
-
-      <button type="submit" class="submit-btn">문의하기</button>
-    </form>
-  </div>
-
-  <script type="text/javascript" src="/main.js"></script>
+  <script src="/shared/shared.js"></script>
 </body>
 </html>

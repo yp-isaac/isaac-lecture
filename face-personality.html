@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI가 얼굴 특징을 분석하여 성격 경향, 첫인상, 연애 스타일, 직장 스타일을 알려드립니다.">
+  <title>얼굴로 보는 성격 분석 - 아이작</title>
+  <link href="/shared/shared.css" rel="stylesheet">
+  <link href="/css/face-personality.css" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+</head>
+<body data-page="face-personality">
+  <div id="site-nav"></div>
+
+  <div class="container">
+    <h1>얼굴로 보는 성격 분석</h1>
+    <p class="subtitle">AI가 얼굴 특징을 분석하여 성격 경향을 알려드려요</p>
+    <p class="disclaimer-top">※ 재미로 보는 분석이며, 실제 성격과 다를 수 있습니다.</p>
+
+    <!-- 업로드 영역 -->
+    <div class="upload-section" id="uploadSection">
+      <div class="upload-area" id="uploadArea">
+        <input type="file" id="fileInput" accept="image/*" hidden>
+        <div class="upload-placeholder" id="uploadPlaceholder">
+          <div class="upload-icon">📷</div>
+          <p class="upload-text">클릭하거나 이미지를 드래그하세요</p>
+          <p class="upload-hint">정면 얼굴 사진을 권장합니다</p>
+        </div>
+        <div class="preview-container" id="previewContainer" hidden>
+          <img id="previewImage" alt="업로드된 이미지">
+          <button class="remove-btn" id="removeBtn" aria-label="이미지 제거">✕</button>
+        </div>
+      </div>
+
+      <button class="analyze-btn" id="analyzeBtn" disabled>
+        성격 분석하기
+      </button>
+    </div>
+
+    <!-- 로딩 애니메이션 -->
+    <div class="loading-section" id="loadingSection" hidden>
+      <div class="loading-spinner"></div>
+      <p class="loading-text" id="loadingText">AI 모델을 불러오는 중...</p>
+      <p class="loading-subtext" id="loadingSubtext">처음 실행 시 잠시 시간이 걸릴 수 있어요</p>
+    </div>
+
+    <!-- 에러 메시지 -->
+    <div class="error-section" id="errorSection" hidden>
+      <div class="error-icon">😅</div>
+      <p class="error-text" id="errorText">얼굴을 감지하지 못했어요</p>
+      <p class="error-subtext">정면을 바라보는 선명한 사진으로 다시 시도해주세요</p>
+      <button class="retry-btn" id="errorRetryBtn">다시 시도하기</button>
+    </div>
+
+    <!-- 결과 영역 -->
+    <div class="result-section" id="resultSection" hidden>
+      <div class="feature-summary" id="featureSummary">
+        <h3>감지된 얼굴 특징</h3>
+        <div class="feature-tags" id="featureTags"></div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">👋</span>
+          <h2>첫인상</h2>
+        </div>
+        <p class="result-card-content" id="firstImpression"></p>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">🧠</span>
+          <h2>성격 경향</h2>
+        </div>
+        <p class="result-card-content" id="personalityTendency"></p>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">💕</span>
+          <h2>연애에서의 모습</h2>
+        </div>
+        <p class="result-card-content" id="loveStyle"></p>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">💼</span>
+          <h2>사회/직장 스타일</h2>
+        </div>
+        <p class="result-card-content" id="workStyle"></p>
+      </div>
+
+      <div class="result-disclaimer">
+        <p>얼굴 인상은 환경, 표정, 컨디션에 따라 달라질 수 있으며, 이 분석은 현재 이미지 기준의 경향을 바탕으로 합니다.</p>
+      </div>
+
+      <button class="retry-btn" id="retryBtn">다른 사진으로 분석하기</button>
+    </div>
+  </div>
+
+  <div class="comments-section">
+    <h2>댓글</h2>
+    <p class="comments-subtitle">분석 결과에 대한 의견을 남겨주세요</p>
+    <div id="disqus_thread"></div>
+    <script>
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://isaac-lecture.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+
+  <div class="contact-section">
+    <h2>비즈니스 제휴 문의</h2>
+    <p class="contact-subtitle">제휴 및 협업 관련 문의를 남겨주세요</p>
+    <form action="https://formspree.io/f/mojdozjb" method="POST" class="contact-form">
+      <div class="form-group">
+        <label for="name">이름 *</label>
+        <input type="text" id="name" name="name" required placeholder="홍길동">
+      </div>
+      <div class="form-group">
+        <label for="email">이메일 *</label>
+        <input type="email" id="email" name="email" required placeholder="example@company.com">
+      </div>
+      <div class="form-group">
+        <label for="company">회사명</label>
+        <input type="text" id="company" name="company" placeholder="회사명을 입력하세요">
+      </div>
+      <div class="form-group">
+        <label for="message">문의 내용 *</label>
+        <textarea id="message" name="message" rows="5" required placeholder="제휴 관련 문의 내용을 작성해 주세요"></textarea>
+      </div>
+      <button type="submit" class="submit-btn">문의하기</button>
+    </form>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/shared/shared.js"></script>
+  <script src="/js/face-personality.js"></script>
+</body>
+</html>

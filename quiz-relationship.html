@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="사회 속에서 나는 어떤 유형? 12개의 문항으로 나의 인간관계 스타일을 분석해보세요.">
+  <title>인간관계 유형 테스트 - 아이작</title>
+  <link href="/shared/shared.css" rel="stylesheet">
+  <link href="/css/quiz-relationship.css" rel="stylesheet">
+</head>
+<body data-page="quiz-relationship">
+  <div id="site-nav"></div>
+
+  <div class="container">
+    <h1>인간관계 유형 테스트</h1>
+    <p class="subtitle">12개의 문항으로 알아보는 나의 관계 스타일</p>
+    <p class="disclaimer-top">※ 재미로 보는 테스트이며, 실제와 다를 수 있습니다.</p>
+
+    <!-- 시작 화면 -->
+    <div class="start-section" id="startSection">
+      <div class="start-card">
+        <div class="start-icon">🤝</div>
+        <p class="start-desc">사회생활에서 나는 어떤 유형?<br>12개의 질문에 답하고 나만의 관계 스타일을 확인해보세요!</p>
+        <button class="start-btn" id="startBtn">테스트 시작하기</button>
+      </div>
+    </div>
+
+    <!-- 퀴즈 영역 -->
+    <div class="quiz-section" id="quizSection" hidden>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <p class="progress-text" id="progressText">1 / 12</p>
+
+      <div class="question-card" id="questionCard">
+        <h2 class="question-text" id="questionText"></h2>
+        <div class="options" id="optionsContainer"></div>
+      </div>
+    </div>
+
+    <!-- 결과 영역 -->
+    <div class="result-section" id="resultSection" hidden>
+      <div class="result-type-card" id="resultTypeCard">
+        <div class="result-emoji" id="resultEmoji"></div>
+        <h2 class="result-type-name" id="resultTypeName"></h2>
+        <p class="result-type-subtitle" id="resultTypeSubtitle"></p>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">🔍</span>
+          <h2>관계 성향</h2>
+        </div>
+        <p class="result-card-content" id="resultTendency"></p>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">💪</span>
+          <h2>관계에서의 강점</h2>
+        </div>
+        <p class="result-card-content" id="resultStrength"></p>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">⚠️</span>
+          <h2>주의할 점</h2>
+        </div>
+        <p class="result-card-content" id="resultWeakness"></p>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">🤝</span>
+          <h2>잘 맞는 유형</h2>
+        </div>
+        <p class="result-card-content" id="resultMatch"></p>
+      </div>
+
+      <div class="result-disclaimer">
+        <p>이 테스트는 재미를 위한 것이며, 전문적인 심리 분석이 아닙니다.</p>
+      </div>
+
+      <button class="retry-btn" id="retryBtn">다시 테스트하기</button>
+    </div>
+  </div>
+
+  <div class="comments-section">
+    <h2>댓글</h2>
+    <p class="comments-subtitle">결과에 대한 의견을 남겨주세요</p>
+    <div id="disqus_thread"></div>
+    <script>
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://isaac-lecture.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/shared/shared.js"></script>
+  <script src="/js/quiz-relationship.js"></script>
+</body>
+</html>

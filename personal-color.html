@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="사진 한 장으로 나에게 어울리는 퍼스널 칼라를 진단해보세요. AI가 피부톤을 분석하여 계절 유형을 알려드립니다.">
+  <title>퍼스널 칼라 진단 - 아이작</title>
+  <link href="/shared/shared.css" rel="stylesheet">
+  <link href="/css/personal-color.css" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+</head>
+<body data-page="personal-color">
+  <div id="site-nav"></div>
+
+  <div class="container">
+    <h1>퍼스널 칼라 진단</h1>
+    <p class="subtitle">사진 한 장으로 알아보는 나만의 컬러</p>
+    <p class="disclaimer-top">※ 재미로 보는 진단이며, 전문 진단과 다를 수 있습니다.</p>
+
+    <!-- 업로드 영역 -->
+    <div class="upload-section" id="uploadSection">
+      <div class="upload-area" id="uploadArea">
+        <input type="file" id="fileInput" accept="image/*" hidden>
+        <div class="upload-placeholder" id="uploadPlaceholder">
+          <div class="upload-icon">🎨</div>
+          <p class="upload-text">클릭하거나 이미지를 드래그하세요</p>
+          <p class="upload-hint">자연광에서 촬영한 정면 사진을 권장합니다</p>
+        </div>
+        <div class="preview-container" id="previewContainer" hidden>
+          <img id="previewImage" alt="업로드된 이미지">
+          <button class="remove-btn" id="removeBtn" aria-label="이미지 제거">✕</button>
+        </div>
+      </div>
+      <canvas id="hiddenCanvas" style="display:none;"></canvas>
+
+      <button class="analyze-btn" id="analyzeBtn" disabled>
+        퍼스널 칼라 진단하기
+      </button>
+    </div>
+
+    <!-- 로딩 -->
+    <div class="loading-section" id="loadingSection" hidden>
+      <div class="loading-spinner"></div>
+      <p class="loading-text" id="loadingText">AI 모델을 불러오는 중...</p>
+      <p class="loading-subtext" id="loadingSubtext">처음 실행 시 잠시 시간이 걸릴 수 있어요</p>
+    </div>
+
+    <!-- 에러 -->
+    <div class="error-section" id="errorSection" hidden>
+      <div class="error-icon">😅</div>
+      <p class="error-text" id="errorText">얼굴을 감지하지 못했어요</p>
+      <p class="error-subtext">정면을 바라보는 선명한 사진으로 다시 시도해주세요</p>
+      <button class="retry-btn" id="errorRetryBtn">다시 시도하기</button>
+    </div>
+
+    <!-- 결과 영역 -->
+    <div class="result-section" id="resultSection" hidden>
+      <div class="season-card" id="seasonCard">
+        <div class="season-emoji" id="seasonEmoji"></div>
+        <h2 class="season-name" id="seasonName"></h2>
+        <p class="season-subtitle" id="seasonSubtitle"></p>
+        <div class="skin-tone-display">
+          <span class="skin-tone-label">추출된 피부톤</span>
+          <div class="skin-tone-swatch" id="skinToneSwatch"></div>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">✨</span>
+          <h2>나의 컬러 특징</h2>
+        </div>
+        <p class="result-card-content" id="resultCharacteristic"></p>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">🎨</span>
+          <h2>추천 컬러 팔레트</h2>
+        </div>
+        <div class="color-palette" id="recommendedColors"></div>
+        <p class="result-card-content" id="resultRecommend"></p>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">🚫</span>
+          <h2>피하면 좋은 컬러</h2>
+        </div>
+        <div class="color-palette" id="avoidColors"></div>
+        <p class="result-card-content" id="resultAvoid"></p>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">💄</span>
+          <h2>메이크업 팁</h2>
+        </div>
+        <p class="result-card-content" id="resultMakeup"></p>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <span class="result-card-icon">🌟</span>
+          <h2>같은 유형 유명인</h2>
+        </div>
+        <p class="result-card-content" id="resultCelebrity"></p>
+      </div>
+
+      <div class="result-disclaimer">
+        <p>이 진단은 사진 조건(조명, 화이트밸런스)에 따라 결과가 달라질 수 있습니다.</p>
+      </div>
+
+      <button class="retry-btn" id="retryBtn">다른 사진으로 진단하기</button>
+    </div>
+  </div>
+
+  <div class="comments-section">
+    <h2>댓글</h2>
+    <p class="comments-subtitle">진단 결과에 대한 의견을 남겨주세요</p>
+    <div id="disqus_thread"></div>
+    <script>
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://isaac-lecture.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/shared/shared.js"></script>
+  <script src="/js/personal-color.js"></script>
+</body>
+</html>

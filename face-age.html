@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI가 추정하는 내 얼굴 나이는? 사진 한 장으로 동안인지 노안인지 확인해보세요.">
+  <title>얼굴 나이 테스트 - 아이작</title>
+  <link href="/shared/shared.css" rel="stylesheet">
+  <link href="/css/face-age.css" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+</head>
+<body data-page="face-age">
+  <div id="site-nav"></div>
+
+  <div class="container">
+    <h1>얼굴 나이 테스트</h1>
+    <p class="subtitle">AI가 추정하는 내 얼굴 나이는 몇 살?</p>
+    <p class="disclaimer-top">※ 재미로 보는 테스트이며, 실제 나이와 다를 수 있습니다.</p>
+
+    <!-- 업로드 영역 -->
+    <div class="upload-section" id="uploadSection">
+      <div class="upload-area" id="uploadArea">
+        <input type="file" id="fileInput" accept="image/*" hidden>
+        <div class="upload-placeholder" id="uploadPlaceholder">
+          <div class="upload-icon">🧒</div>
+          <p class="upload-text">클릭하거나 이미지를 드래그하세요</p>
+          <p class="upload-hint">정면 얼굴 사진을 권장합니다</p>
+        </div>
+        <div class="preview-container" id="previewContainer" hidden>
+          <img id="previewImage" alt="업로드된 이미지">
+          <button class="remove-btn" id="removeBtn" aria-label="이미지 제거">✕</button>
+        </div>
+      </div>
+
+      <button class="analyze-btn" id="analyzeBtn" disabled>
+        얼굴 나이 분석하기
+      </button>
+    </div>
+
+    <!-- 로딩 -->
+    <div class="loading-section" id="loadingSection" hidden>
+      <div class="loading-spinner"></div>
+      <p class="loading-text" id="loadingText">AI 모델을 불러오는 중...</p>
+      <p class="loading-subtext" id="loadingSubtext">처음 실행 시 잠시 시간이 걸릴 수 있어요</p>
+    </div>
+
+    <!-- 에러 -->
+    <div class="error-section" id="errorSection" hidden>
+      <div class="error-icon">😅</div>
+      <p class="error-text" id="errorText">얼굴을 감지하지 못했어요</p>
+      <p class="error-subtext">정면을 바라보는 선명한 사진으로 다시 시도해주세요</p>
+      <button class="retry-btn" id="errorRetryBtn">다시 시도하기</button>
+    </div>
+
+    <!-- 결과 영역 -->
+    <div class="result-section" id="resultSection" hidden>
+      <div class="age-result-card">
+        <p class="age-label">AI가 추정한 얼굴 나이</p>
+        <div class="age-number" id="ageNumber"></div>
+        <p class="age-unit">세</p>
+        <div class="gender-badge" id="genderBadge"></div>
+      </div>
+
+      <!-- 실제 나이 입력 -->
+      <div class="real-age-section" id="realAgeSection">
+        <p class="real-age-prompt">실제 나이를 입력하면 동안/노안 여부를 알려드려요!</p>
+        <div class="real-age-input-row">
+          <input type="number" id="realAgeInput" min="1" max="120" placeholder="실제 나이">
+          <button class="check-btn" id="checkBtn">확인</button>
+        </div>
+      </div>
+
+      <!-- 동안/노안 판정 -->
+      <div class="verdict-card" id="verdictCard" hidden>
+        <div class="verdict-emoji" id="verdictEmoji"></div>
+        <h2 class="verdict-title" id="verdictTitle"></h2>
+        <p class="verdict-desc" id="verdictDesc"></p>
+      </div>
+
+      <!-- 코멘트 카드 -->
+      <div class="result-card" id="commentCard">
+        <div class="result-card-header">
+          <span class="result-card-icon">💬</span>
+          <h2>AI의 한마디</h2>
+        </div>
+        <p class="result-card-content" id="ageComment"></p>
+      </div>
+
+      <div class="result-disclaimer">
+        <p>AI의 나이 추정은 조명, 표정, 각도에 따라 달라질 수 있습니다.</p>
+      </div>
+
+      <button class="retry-btn" id="retryBtn">다른 사진으로 분석하기</button>
+    </div>
+  </div>
+
+  <div class="comments-section">
+    <h2>댓글</h2>
+    <p class="comments-subtitle">분석 결과에 대한 의견을 남겨주세요</p>
+    <div id="disqus_thread"></div>
+    <script>
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://isaac-lecture.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="/shared/shared.js"></script>
+  <script src="/js/face-age.js"></script>
+</body>
+</html>
