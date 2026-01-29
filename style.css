@@ -132,6 +132,12 @@ h1 {
 .subtitle {
   font-size: 1.1rem;
   opacity: 0.8;
+  margin-bottom: 10px;
+}
+
+.disclaimer-top {
+  font-size: 0.85rem;
+  opacity: 0.6;
   margin-bottom: 40px;
 }
 
@@ -396,6 +402,8 @@ h1 {
   opacity: 0.6;
   font-size: 0.9rem;
   margin-bottom: 20px;
+  line-height: 1.6;
+  word-break: keep-all;
 }
 
 /* 다시 분석 버튼 */
@@ -572,5 +580,14 @@ h1 {
   .comments-section h2,
   .contact-section h2 {
     font-size: 1.5rem;
+  }
+
+  .result-disclaimer {
+    font-size: 0.8rem;
+    padding: 15px 10px;
+  }
+
+  .disclaimer-top {
+    font-size: 0.75rem;
   }
 }
