@@ -18,7 +18,26 @@ function toggleTheme() {
 
   document.documentElement.setAttribute('data-theme', newTheme);
   localStorage.setItem('theme', newTheme);
+  setGiscusTheme(newTheme);
 }
+
+function setGiscusTheme(theme) {
+  const iframe = document.querySelector('iframe.giscus-frame');
+  if (iframe) {
+    iframe.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: theme } } },
+      'https://giscus.app'
+    );
+  }
+}
+
+// giscus 로드 완료 시 사이트 테마와 동기화
+window.addEventListener('message', (e) => {
+  if (e.origin !== 'https://giscus.app') return;
+  if (!(typeof e.data === 'object' && e.data.giscus)) return;
+  const siteTheme = document.documentElement.getAttribute('data-theme') || 'light';
+  setGiscusTheme(siteTheme);
+});
 
 initTheme();
 
