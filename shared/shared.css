@@ -21,7 +21,6 @@
 }
 
 [data-theme="dark"] {
-  color-scheme: dark;
   --bg-color: #1a1a2e;
   --text-color: #f5f5f5;
   --card-bg: #16213e;
@@ -259,7 +258,7 @@ h1 {
   margin-bottom: 30px;
 }
 
-.giscus {
+#disqus_thread {
   text-align: left;
 }
 
