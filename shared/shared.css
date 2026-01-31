@@ -129,6 +129,70 @@ body {
   gap: 10px;
 }
 
+/* 언어 선택 드롭다운 */
+.lang-selector {
+  position: relative;
+}
+
+.lang-btn {
+  background: none;
+  border: 2px solid var(--border-color);
+  color: var(--text-color);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.lang-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.lang-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px var(--shadow);
+  overflow: hidden;
+  z-index: 300;
+  min-width: 120px;
+}
+
+.lang-dropdown.open {
+  display: block;
+}
+
+.lang-option {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-color);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease;
+}
+
+.lang-option:hover {
+  background-color: var(--tag-bg);
+}
+
+.lang-option.active {
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
 /* 햄버거 메뉴 */
 .hamburger {
   display: none;
@@ -538,6 +602,11 @@ h1 {
 
   .hamburger {
     display: flex;
+  }
+
+  .lang-btn {
+    font-size: 0.75rem;
+    padding: 3px 8px;
   }
 
   /* SEO 정보 */
