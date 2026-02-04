@@ -21,6 +21,16 @@ function setLang(lang) {
   applyTranslations(lang);
 }
 
+function t(key) {
+  var lang = getLang();
+  var dict = (typeof TRANSLATIONS !== 'undefined') ? TRANSLATIONS[lang] : null;
+  if (dict && dict[key] !== undefined) return dict[key];
+  // Fallback to Korean
+  var fallback = (typeof TRANSLATIONS !== 'undefined') ? TRANSLATIONS['ko'] : null;
+  if (fallback && fallback[key] !== undefined) return fallback[key];
+  return key;
+}
+
 function applyTranslations(lang) {
   if (!SUPPORTED_LANGS.includes(lang)) lang = DEFAULT_LANG;
   const dict = (typeof TRANSLATIONS !== 'undefined') ? TRANSLATIONS[lang] : null;
@@ -42,6 +52,26 @@ function applyTranslations(lang) {
 
   // Update document lang attribute
   document.documentElement.setAttribute('lang', lang === 'ko' ? 'ko' : 'en');
+
+  // Update og:locale
+  var ogLocale = document.querySelector('meta[property="og:locale"]');
+  if (ogLocale) {
+    ogLocale.setAttribute('content', lang === 'en' ? 'en_US' : 'ko_KR');
+  }
+
+  // Update JSON-LD structured data
+  var jsonLdScript = document.querySelector('script[type="application/ld+json"]');
+  if (jsonLdScript) {
+    try {
+      var jsonLdData = JSON.parse(jsonLdScript.textContent);
+      var nameKey = jsonLdScript.getAttribute('data-i18n-name');
+      var descKey = jsonLdScript.getAttribute('data-i18n-desc');
+      if (nameKey && dict[nameKey] !== undefined) jsonLdData.name = dict[nameKey];
+      if (descKey && dict[descKey] !== undefined) jsonLdData.description = dict[descKey];
+      if (jsonLdData.inLanguage !== undefined) jsonLdData.inLanguage = lang;
+      jsonLdScript.textContent = JSON.stringify(jsonLdData, null, 2);
+    } catch(e) {}
+  }
 
   // Update language selector button text
   const langBtn = document.querySelector('.lang-btn');
